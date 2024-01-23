@@ -1,0 +1,26 @@
+<div class="row my-2">
+  <% @list.movies.each do |movie| %>
+    <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+    <div class="col-8 col-sm-6 mb-4" data-aos="zoom-in">
+      <div class="bg-white rounded shadow h-100 w-50">
+        <%= image_tag movie.poster_url, alt: movie.title, class: "movie-img rounded-top ps-5", width: '250', heigth: '250' %>
+        <div class="p-3 rounded-bottom d-flex flex-column">
+          <strong><%= movie.title %> <span class="text-muted font-weight-normal">• <%= movie.rating.ceil(1) %> <i class="fas fa-star star-yellow"></i></span></strong>
+          <small class="text-muted"><%= movie.overview %></small>
+          <div class="d-flex align-items-end justify-content-start pt-4">
+            <div>
+              <i class="fas fa-quote-left me-2"></i><small class="flex-grow-1"><%= bookmark.comment %></small>
+            </div>
+            <div>
+               <%= button_to "delete", bookmark_path(bookmark), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %>
+            </div>
+            <!--
+            <small class="text-right flex-shrink-0"><%# link_to "delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %></small>-->
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
+<%= link_to "Create new bookmark", new_list_bookmark_path(list_id: @list.id) %>
+<%= link_to "Back to lists", lists_path(@lists) %>

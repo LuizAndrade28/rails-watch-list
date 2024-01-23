@@ -5,12 +5,19 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <div class="navbar-lewagon d-flex">
+        <div class="navbar-brand"><%= link_to image_tag('nav-icon.png'), lists_path %></div>
+        <div class="navbar-text d-flex align-items-center justify-content-around">
+          <div class="align-items-center"><%= link_to "My Lists", lists_path %></div>
+          <div><%= link_to "New List", new_list_path %></div>
+        </div>
+      </div>
     <%= yield %>
   </body>
 </html>
