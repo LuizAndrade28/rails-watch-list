@@ -1,6 +1,10 @@
 <div class="container">
-  <%= simple_form_for(@list) do |f| %>
-  <%= f.input :name %>
-  <%= f.submit %>
-<% end %>
+  <div class="vh-100 width-100 d-flex justify-content-center mt-5">
+    <div class="w-50">
+      <%= simple_form_for(@list) do |f| %>
+        <%= f.input :name %>
+        <%= f.button :submit, class: "btn btn-primary" %>
+      <% end %>
+    </div>
+  </div>
 </div>
