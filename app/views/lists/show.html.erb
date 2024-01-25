@@ -1,35 +1,38 @@
 <div class="container vh-100">
-  <div class="d-flex my-2">
-    <% @list.movies.each do |movie| %>
-      <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
-        <div class="d-flex flex-wrap justify-content-center bg-white rounded shadow w-25 m-3">
-          <div class="p-3 rounded-bottom d-flex flex-column">
-            <div class="d-flex justify-content-center">
-              <%= image_tag movie.poster_url, alt: movie.title, class: "movie-img rounded-top", width: '60%' %>
-            </div>
-            <div class="d-flex flex-column align-items-around">
-              <div class="d-flex mt-1">
-                <div class="d-flex flex-column w-10">
-                  <strong><%= movie.title %> <span class="text-muted font-weight-normal">• <%= movie.rating.ceil(1) %> <i class="fas fa-star star-yellow"></i></span></strong>
-                  <small class="text-muted"><%= movie.overview %></small>
-                </div>
+  <div data-aos="zoom-in">
+    <div class="d-flex justify-content-end me-5 mt-5">
+      <%= link_to "Add movie", new_list_bookmark_path(list_id: @list.id), class: "btn btn-primary ms-3" %>
+    </div>
+    <div class="d-flex my-2">
+      <% @list.movies.each do |movie| %>
+        <% bookmark = Bookmark.find_by(list: @list, movie: movie) %>
+          <div class="d-flex flex-wrap justify-content-center bg-white rounded shadow w-25 m-3">
+            <div class="p-3 rounded-bottom d-flex flex-column">
+              <div class="d-flex justify-content-center">
+                <%= image_tag movie.poster_url, alt: movie.title, class: "movie-img rounded-top", width: '60%' %>
               </div>
-              <div class="d-flex align-items-end justify-content-between pt-3 w-10 flex-grow">
-                <div class="w-10">
-                  <i class="fas fa-quote-left me-2"></i><small class="flex-grow-1"><%= bookmark.comment %></small>
+              <div class="d-flex flex-column align-items-around">
+                <div class="d-flex mt-1">
+                  <div class="d-flex flex-column w-10">
+                    <strong><%= movie.title %> <span class="text-muted font-weight-normal">• <%= movie.rating.ceil(1) %> <i class="fas fa-star star-yellow"></i></span></strong>
+                    <small class="text-muted"><%= movie.overview %></small>
+                  </div>
                 </div>
-                <div class="w-10">
-                  <%= button_to "delete", bookmark_path(bookmark), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %>
+                <div class="d-flex align-items-end justify-content-between pt-3 w-10 flex-grow">
+                  <div class="w-10">
+                    <i class="fas fa-quote-left me-2"></i><small class="flex-grow-1"><%= bookmark.comment %></small>
+                  </div>
+                  <div class="w-10">
+                    <%= button_to "delete", bookmark_path(bookmark), method: :delete, data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %>
+                  </div>
+                  <!--
+                  <small class="text-right flex-shrink-0"><%# link_to "delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %></small>-->
                 </div>
-                <!--
-                <small class="text-right flex-shrink-0"><%# link_to "delete", bookmark_path(bookmark), data: { turbo_method: :delete, turbo_confirm: "Are you sure you want to remove #{movie.title} from your #{@list.name} list"}, class: 'text-danger' %></small>-->
               </div>
             </div>
           </div>
-        </div>
 
-    <% end %>
+      <% end %>
+    </div>
   </div>
-  <%= link_to "Add movie", new_list_bookmark_path(list_id: @list.id), class: "btn btn-primary ms-3" %>
-
 </div>
